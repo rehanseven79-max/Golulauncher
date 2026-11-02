@@ -1,3 +1,4 @@
+
 name: Build APK
 
 on:
@@ -10,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Unzip Project
+      - name: Extract ZIP
         run: unzip GoluLauncher_final.zip
 
       - uses: actions/setup-java@v4
@@ -19,12 +20,11 @@ jobs:
           java-version: '17'
 
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
 
       - name: Build APK
-        run: |
-          cd GoluLauncher
-          chmod +x gradlew || true
-          ./gradlew assembleDebug || gradle assembleDebug
+        run: gradle -p GoluLauncher assembleDebug
 
       - uses: actions/upload-artifact@v4
         with:
