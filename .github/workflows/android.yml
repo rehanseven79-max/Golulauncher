@@ -1,0 +1,32 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unzip Project
+        run: unzip GoluLauncher_final.zip
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK
+        run: |
+          cd GoluLauncher
+          chmod +x gradlew || true
+          ./gradlew assembleDebug || gradle assembleDebug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GoluLauncher-APK
+          path: GoluLauncher/app/build/outputs/apk/debug/*.apk
