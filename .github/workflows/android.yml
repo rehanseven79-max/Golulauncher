@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Extract ZIP
-        run: unzip GoluLauncher_final.zip
+        run: unzip -o GoluLauncher_final.zip
 
       - uses: actions/setup-java@v4
         with:
