@@ -13,7 +13,8 @@ jobs:
 
       - name: Extract ZIP
         run: unzip -o GoluLauncher_final.zip
-
+      - name: Fix Kotlin import
+        run: sed -i '/import androidx.compose.ui.input.key.nativeKeyEvent/d' GoluLauncher/app/src/main/java/com/golu/launcher/Home.kt
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
